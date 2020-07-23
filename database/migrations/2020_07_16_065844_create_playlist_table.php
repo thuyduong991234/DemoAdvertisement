@@ -21,8 +21,6 @@ class CreatePlaylistTable extends Migration
             $table->tinyInteger('version_update_type', false, true)->default(0)->comment('0:自動更新、1:プレイリスト更新時刻')->nullable();
             $table->text('comment')->nullable()->default(NULL);
             $table->integer('seconds')->unsigned()->default(0);
-            $table->string('created_by', 128)->default('');
-            $table->string('updated_by', 128)->nullable()->default('');
             $table->integer('updated_at')->nullable()->default(0);
             $table->integer('created_at')->unsigned()->nullable()->default(0);
 

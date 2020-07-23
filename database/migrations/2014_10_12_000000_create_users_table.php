@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('is_locked')->nullable()->unsigned()->default(0);
             $table->tinyInteger('is_disabled')->nullable()->unsigned()->default(0);
             $table->string('api_token', 128)->unique()->nullable()->default(null);
-            $table->string('created_by', 128)->nullable()->default('');
-            $table->string('updated_by', 128)->nullable()->default('');
             $table->integer('updated_at')->nullable()->default(0);
             $table->integer('created_at')->unsigned()->nullable()->default(0);
         });

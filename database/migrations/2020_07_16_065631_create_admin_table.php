@@ -19,8 +19,6 @@ class CreateAdminTable extends Migration
             $table->tinyInteger('is_locked')->nullable()->unsigned();
             $table->tinyInteger('is_disabled')->nullable()->unsigned();
             $table->string('api_token', 128)->unique()->nullable()->default(null);
-            $table->string('created_by', 128)->default('');
-            $table->string('updated_by', 128)->nullable()->default('');
             $table->integer('updated_at')->nullable();
             $table->integer('created_at');
         });

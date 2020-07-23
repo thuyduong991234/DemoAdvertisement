@@ -19,7 +19,6 @@ class CreatePlaylistSlotsTable extends Migration
             $table->uuid('slot_id');
             $table->integer('seq')->unsigned()->default(0);
             $table->integer('seconds')->unsigned()->default(0);
-            $table->string('created_by', 128)->default('');
             $table->integer('created_at')->unsigned()->default(0);
 
             $table->foreign('slot_id')

@@ -21,8 +21,6 @@ class CreateContentTable extends Migration
             $table->string('thumb_url', 1024)->nullable()->default('');
             $table->integer('seconds', false, true)->nullable()->default(0)->unsigned();
             $table->text('comment')->nullable()->default(null);
-            $table->string('created_by', 128)->default('');
-            $table->string('updated_by', 128)->nullable()->default('');
             $table->integer('updated_at')->nullable()->default(0);
             $table->integer('created_at')->unsigned()->default(0);
         });

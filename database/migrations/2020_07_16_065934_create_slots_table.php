@@ -18,7 +18,6 @@ class CreateSlotsTable extends Migration
             $table->uuid('playlist_id')->nullable();
             $table->string('slot_name', 128)->default('');
             $table->integer('created_at')->unsigned()->default(0);
-            $table->string('created_by', 128)->default('');
 
             $table->foreign('playlist_id')
                 ->references('id')

@@ -22,9 +22,7 @@ class CreateContractTable extends Migration
             $table->text('comment')->nullable()->default(NULL);
             $table->tinyInteger('is_disabled')->nullable()->default(0)->unsigned();
             $table->integer('created_at')->unsigned()->default(0);
-            $table->string('created_by', 128)->default('');
             $table->integer('updated_at')->nullable()->default(0);
-            $table->string('updated_by', 128)->default('');
         });
     }
 

@@ -17,7 +17,6 @@ class CreateDevicePlaylistTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('device_id');
             $table->uuid('playlist_id');
-            $table->string('created_by', 128)->default('');
             $table->integer('created_at')->unsigned()->default(0);
 
             $table->foreign('device_id')

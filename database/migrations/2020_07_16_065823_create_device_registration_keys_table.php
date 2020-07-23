@@ -18,7 +18,6 @@ class CreateDeviceRegistrationKeysTable extends Migration
             $table->uuid('device_id');
             $table->string('registration_key',128)->default('');
             $table->integer('created_at')->unsigned()->default(0);
-            $table->string('created_by', 128)->default('');
 
             $table->foreign('device_id')
                 ->references('id')
