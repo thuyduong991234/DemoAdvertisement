@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
             SlotSeeder::class,
             DevicePlaylistSeeder::class,
             PlaylistSlotSeeder::class,
-            SlotContentSeeder::class
+            SlotContentSeeder::class,
+            DeviceLogSeeder::class,
+            DeviceStatusSeeder::class
         ]);
 
 
