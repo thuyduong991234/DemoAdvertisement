@@ -10,8 +10,8 @@ $factory->define(PlaylistSlot::class, function (Faker $faker) {
         //
         'playlist_id' => \App\Models\Playlist::all()->random()->id,
         'slot_id' => \App\Models\Slot::all()->random()->id,
-        'seq' => $faker->randomDigit,
-        'seconds' => $faker->randomDigit,
+        'seq' => $faker->numberBetween($min = 30, $max = 120),
+        'seconds' => $faker->numberBetween($min = 30, $max = 120),
         'created_at' => $faker->unixTime($max='now')
     ];
 });

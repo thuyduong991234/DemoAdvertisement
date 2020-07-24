@@ -10,8 +10,8 @@ $factory->define(SlotContent::class, function (Faker $faker) {
         //
         'slot_id' => \App\Models\Slot::all()->random()->id,
         'content_id' => \App\Models\Content::all()->random()->id,
-        'seq' => $faker->randomDigit,
-        'seconds' => $faker->randomDigit,
+        'seq' => $faker->numberBetween($min = 30, $max = 120),
+        'seconds' => $faker->numberBetween($min = 30, $max = 120),
         'created_at' => $faker->unixTime($max='now')
     ];
 });

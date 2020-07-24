@@ -12,7 +12,7 @@ $factory->define(Content::class, function (Faker $faker) {
     'content_type' => $faker->randomElement([1,2,3]),
     'url' => $faker->url,
     'thumb_url' => $faker->url,
-    'seconds' => $faker->randomDigit,
+    'seconds' => $faker->numberBetween($min = 30, $max = 120),
     'updated_at' => $faker->unixTime($max = 'now'),
     'created_at' => $faker->unixTime($max = 'now')
     ];

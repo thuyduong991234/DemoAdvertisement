@@ -10,7 +10,7 @@ $factory->define(Playlist::class, function (Faker $faker) {
         //
         'contract_id' => App\Models\Contract::all()->random()->id,
         'playlist_name' => $faker->name,
-        'seconds' => $faker->randomDigit,
+        'seconds' => $faker->numberBetween($min = 30, $max = 120),
         'updated_at' => $faker->unixTime($max = 'now'),
         'created_at' => $faker->unixTime($max = 'now')
     ];
