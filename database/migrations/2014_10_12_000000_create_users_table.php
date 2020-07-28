@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
         });
 
         \Illuminate\Support\Facades\DB::statement('ALTER TABLE `accounts` ADD `login_id` VARBINARY(256) NOT NULL UNIQUE');
-        \Illuminate\Support\Facades\DB::statement('ALTER TABLE `accounts` ADD `login_pw` VARBINARY(256) NOT NULL');
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE `accounts` ADD `login_pw` VARCHAR (256) NOT NULL');
     }
 
     /**

@@ -24,7 +24,7 @@ class CreateAdminTable extends Migration
         });
 
         \Illuminate\Support\Facades\DB::statement('ALTER TABLE `admins` ADD `login_id` VARBINARY(256) NOT NULL UNIQUE');
-        \Illuminate\Support\Facades\DB::statement('ALTER TABLE `admins` ADD `login_pw` VARBINARY(256) NOT NULL');
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE `admins` ADD `login_pw` VARCHAR(256) NOT NULL');
     }
 
     /**

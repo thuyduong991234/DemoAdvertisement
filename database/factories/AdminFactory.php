@@ -11,7 +11,8 @@ $factory->define(Admin::class, function (Faker $faker) {
         'admin_name' => $faker->name,
         'updated_at' => $faker->unixTime($max='now'),
         'created_at' => $faker->unixTime($max='now'),
-        'login_id' => $faker->uuid,
-        'login_pw' => \Illuminate\Support\Facades\Hash::make('password')
+        'login_id' => $faker->safeEmail,
+        'login_pw' => 'password'
+        //'login_pw' => 'hello'
     ];
 });

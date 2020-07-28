@@ -14,7 +14,7 @@ $factory->define(Account::class, function (Faker $faker) {
         "end_at" => $faker->unixTime($max = 'now'),
         'updated_at' => $faker->unixTime($max='now'),
         'created_at' => $faker->unixTime($max='now'),
-        'login_id' => $faker->uuid,
-        'login_pw' => \Illuminate\Support\Facades\Hash::make('password')
+        'login_id' => $faker->safeEmail,
+        'login_pw' => 'password'
     ];
 });
