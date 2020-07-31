@@ -11,8 +11,17 @@ class Content extends Model
     //
     use UtilTrait, Filterable;
     public $incrementing = false;
-    public $timestamps = FALSE;
+    //public $timestamps = FALSE;
+    protected $dateFormat = 'U';
     protected $table = 'contents';
+    protected $fillable = [
+        'content_name',
+        'content_type',
+        'url',
+        'thumb_url',
+        'seconds',
+        'comment'
+    ];
 
     public function filterName($query, $value)
     {
@@ -33,4 +42,6 @@ class Content extends Model
     {
         return date("Y-m-d H:i:s", $this->attributes['updated_at']);
     }
+
+
 }
