@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::apiResource('contents', 'API\ContentController');
+Route::apiResource('slots', 'API\SlotController');
 
 Route::post('admin/login', 'Admin\AuthController@login')->name('admin.login');
 Route::post('admin/logout', 'Admin\AuthController@logout')->name('admin.logout');
