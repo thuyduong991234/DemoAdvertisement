@@ -35,8 +35,8 @@ class SlotTransformer extends Transformer
         return $slot->toArray();
     }
 
-    public function includeContents(Slot $slot)
+    public function loadContents($query)
     {
-        return $slot->contents;
+        return $query->orderBy('seq', 'asc')->get();
     }
 }

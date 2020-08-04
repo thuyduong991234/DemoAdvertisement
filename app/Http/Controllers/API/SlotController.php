@@ -36,16 +36,25 @@ class SlotController extends Controller
     public function store(StoreSlotPost $request)
     {
         //
-        $slot = Slot::create($request->except('contents'));
-        foreach ($request->input('contents') as $content)
-        {
-            $new = new SlotContent();
-            $new->fill($content);
-            //$new->content_id = $content->id;
-            $new->slot_id = $slot->id;
-            $new->save();
+        try {
+            $this->authorize('create', Slot::class);
+            $slot = Slot::create($request->except('contents'));
+            foreach ($request->input('contents') as $content)
+            {
+                $new = new SlotContent();
+                $new->fill($content);
+                //$new->content_id = $content->id;
+                $new->slot_id = $slot->id;
+                $new->save();
+            }
+            return responder()->success(['Saved successfully!'])->respond();
         }
-        return responder()->success(['Saved successfully!'])->respond();
+        catch (\Exception $e)
+        {
+            return responder()->error()
+                ->data(["message" => $e->getMessage()])
+                ->respond(401);
+        }
     }
 
     /**
@@ -70,16 +79,23 @@ class SlotController extends Controller
     public function update(Request $request, Slot $slot)
     {
         //
-        //dd($request);
-        $slot->update($request->except('contents'));
-        foreach ($request->input('contents') as $content)
-        {
-            //return $content['content_id'];
-            $new = SlotContent::where('content_id',$content['content_id'])
-                ->where('slot_id','=',$slot->id)
-                ->update(['seq' => $content['seq']]);
+        try {
+            $this->authorize('update', Slot::class);
+            $slot->update($request->except('contents'));
+            foreach ($request->input('contents') as $content)
+            {
+                SlotContent::where('content_id',$content['content_id'])
+                    ->where('slot_id','=',$slot->id)
+                    ->update(['seq' => $content['seq']]);
+            }
+            return responder()->success(['Saved successfully!'])->respond();
         }
-        return responder()->success(['Saved successfully!'])->respond();
+        catch (\Exception $e)
+        {
+            return responder()->error()
+                ->data(["message" => $e->getMessage()])
+                ->respond(401);
+        }
     }
 
     /**
@@ -91,7 +107,17 @@ class SlotController extends Controller
     public function destroy(Slot $slot)
     {
         //
-        $slot->delete();
-        return responder()->success(['Deleted successfully!'])->respond();
+        //$this->authorize('delete', Slot::class);
+        try {
+            $this->authorize('delete', Slot::class);
+            $slot->delete();
+            return responder()->success(['Deleted successfully!'])->respond();
+        }
+        catch (\Exception $e)
+        {
+            return responder()->error()
+                ->data(["message" => $e->getMessage()])
+                ->respond(401);
+        }
     }
 }

@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('contents', 'API\ContentController');
-Route::apiResource('slots', 'API\SlotController');
+Route::middleware('auth:admin,account')->group(function () {
+    Route::apiResource('contents', 'API\ContentController');
+    Route::apiResource('slots', 'API\SlotController');
+});
 
 Route::post('admin/login', 'Admin\AuthController@login')->name('admin.login');
 Route::post('admin/logout', 'Admin\AuthController@logout')->name('admin.logout');

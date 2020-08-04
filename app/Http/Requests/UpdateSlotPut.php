@@ -26,6 +26,18 @@ class UpdateSlotPut extends FormRequest
         return [
             //
             'slot_name' => 'required',
+            'contents.*.content_id' => 'exists:contents,id',
+            'contents.*.seq' => 'required_with:contents.*.content_id|numeric',
+            'contents.*.seconds' => 'required_with:contents.*.content_id|numeric'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'contents.*.content_id' => 'content id',
+            'contents.*.seq' => 'seq',
+            'contents.*.seconds' => 'seconds',
         ];
     }
 }
