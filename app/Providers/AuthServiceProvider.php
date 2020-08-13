@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Device;
+use App\Models\Playlist;
 use App\Models\Slot;
+use App\Policies\DevicePolicy;
+use App\Policies\PlaylistPolicy;
 use App\Policies\SlotPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -16,6 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Slot::class => SlotPolicy::class,
+        Playlist::class => PlaylistPolicy::class,
+        Device::class => DevicePolicy::class
     ];
 
     /**

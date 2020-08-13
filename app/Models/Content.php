@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use App\Traits\UtilTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Content extends Model
 {
@@ -22,6 +23,7 @@ class Content extends Model
         'seconds',
         'comment'
     ];
+    protected $appends = ['size'];
 
     public function filterName($query, $value)
     {
@@ -43,5 +45,16 @@ class Content extends Model
         return date("Y-m-d H:i:s", $this->attributes['updated_at']);
     }
 
-
+    public function getSizeAttribute()
+    {
+        $filename = $this->attributes['content_type'] == 1 ? explode('/', $this->attributes['url'])[1] : null;
+        if(Storage::disk('public')->exists($filename))
+        {
+            return Storage::disk('public')->size($filename);
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }

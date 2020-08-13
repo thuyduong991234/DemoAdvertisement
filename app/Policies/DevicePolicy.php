@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Slot;
+use App\Models\Admin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class SlotPolicy
+class DevicePolicy
 {
     use HandlesAuthorization;
 

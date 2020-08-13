@@ -34,7 +34,8 @@ class ContentTransformer extends Transformer
             'content_name' => $content->content_name,
             'content_type' => $content->content_type,
             'seq' => $content->pivot->seq,
-            'seconds' => $content->pivot->seconds
+            'seconds' => $content->pivot->seconds,
+            'size' => $content->size,
         ];
     }
 }

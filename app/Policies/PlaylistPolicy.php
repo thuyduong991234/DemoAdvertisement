@@ -2,11 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Slot;
+use App\Models\Admin;
+use App\Models\Playlist;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class SlotPolicy
+class PlaylistPolicy
 {
     use HandlesAuthorization;
 

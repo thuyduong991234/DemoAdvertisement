@@ -2,11 +2,10 @@
 
 namespace App\Transformers;
 
-use App\Models\Content;
-use App\Models\Slot;
+use App\Models\Playlist;
 use Flugg\Responder\Transformers\Transformer;
 
-class SlotTransformer extends Transformer
+class PlaylistTransformer extends Transformer
 {
     /**
      * List of available relations.
@@ -14,7 +13,7 @@ class SlotTransformer extends Transformer
      * @var string[]
      */
     protected $relations = [
-        //'contents' => ContentTransformer::class,
+
     ];
 
     /**
@@ -23,25 +22,20 @@ class SlotTransformer extends Transformer
      * @var array
      */
     protected $load = [
-        'contents' => ContentTransformer::class,
+        'slots' => SlotTransformer::class,
     ];
 
     /**
      * Transform the model.
      *
-     * @param
      * @return array
      */
-    public function transform(Slot $slot)
+    public function transform(Playlist $playlist)
     {
-        return [
-            'id' => $slot->id,
-            'playlist_id' => $slot->playlist_id,
-            'slot_name' => $slot->slot_name
-        ];
+        return $playlist->toArray();
     }
 
-    public function loadContents($query)
+    public function loadSlots($query)
     {
         return $query->orderBy('seq', 'asc')->get();
     }

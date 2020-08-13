@@ -24,7 +24,7 @@ class SlotController extends Controller
         $slots = Slot::filter($param)->get();
 
         //dd($contents);
-        return responder()->success($slots, SlotTransformer::class)->with('contents')->respond();
+        return responder()->success($slots, SlotTransformer::class)->respond();
     }
 
     /**
@@ -66,7 +66,7 @@ class SlotController extends Controller
     public function show(Slot $slot)
     {
         //
-        return responder()->success($slot, SlotTransformer::class)->with('contents')->respond();
+        return responder()->success($slot, SlotTransformer::class)->respond();
     }
 
     /**

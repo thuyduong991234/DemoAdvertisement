@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:admin,account')->group(function () {
     Route::apiResource('contents', 'API\ContentController');
     Route::apiResource('slots', 'API\SlotController');
+    Route::apiResource('playlists', 'API\PlaylistController');
+    Route::apiResource('devices', 'API\DeviceController');
 });
-
+Route::get('playlist-size/{playlist}', 'API\PlaylistController@totalSize')->name('playlist.size');
 Route::post('admin/login', 'Admin\AuthController@login')->name('admin.login');
 Route::post('admin/logout', 'Admin\AuthController@logout')->name('admin.logout');
 Route::post('account/login', 'Account\AuthController@login')->name('account.login');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContentPost;
 use App\Http\Requests\UpdateContentPut;
 use App\Models\Content;
+use App\Transformers\ContentTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
