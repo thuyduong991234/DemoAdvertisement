@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
 
     ],
 
@@ -228,7 +229,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Batch' => Mavinoo\Batch\BatchFacade::class,
     ],
 
 ];

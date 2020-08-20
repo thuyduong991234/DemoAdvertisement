@@ -4,8 +4,9 @@ namespace App\Models;
 
 use App\Traits\UtilTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class SlotContent extends Model
+class SlotContent extends Pivot
 {
     //
     const UPDATED_AT = null;
@@ -19,14 +20,4 @@ class SlotContent extends Model
       'seq',
       'seconds'
     ];
-
-    public function slot()
-    {
-        return $this->belongsTo(Slot::class);
-    }
-
-    public function content()
-    {
-        return $this->belongsTo(Content::class);
-    }
 }

@@ -21,9 +21,9 @@ class Content extends Model
         'url',
         'thumb_url',
         'seconds',
-        'comment'
+        'comment',
+        'size'
     ];
-    protected $appends = ['size'];
 
     public function filterName($query, $value)
     {
@@ -43,18 +43,5 @@ class Content extends Model
     public function getUpdatedAtAttribute()
     {
         return date("Y-m-d H:i:s", $this->attributes['updated_at']);
-    }
-
-    public function getSizeAttribute()
-    {
-        $filename = $this->attributes['content_type'] == 1 ? explode('/', $this->attributes['url'])[1] : null;
-        if(Storage::disk('public')->exists($filename))
-        {
-            return Storage::disk('public')->size($filename);
-        }
-        else
-        {
-            return 0;
-        }
     }
 }

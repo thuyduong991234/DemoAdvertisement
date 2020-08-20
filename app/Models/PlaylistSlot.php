@@ -4,8 +4,9 @@ namespace App\Models;
 
 use App\Traits\UtilTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class PlaylistSlot extends Model
+class PlaylistSlot extends Pivot
 {
     //
     const UPDATED_AT = null;
@@ -20,13 +21,4 @@ class PlaylistSlot extends Model
         'seconds'
     ];
 
-    public function slot()
-    {
-        return $this->belongsTo(Slot::class);
-    }
-
-    public function playlist()
-    {
-        return $this->belongsTo(Playlist::class);
-    }
 }

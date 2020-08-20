@@ -14,6 +14,8 @@ use App\Transformers\PlaylistTransformer;
 use App\Transformers\SlotTransformer;
 use Flugg\Responder\Facades\Transformation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class PlaylistController extends Controller
 {
@@ -42,17 +44,16 @@ class PlaylistController extends Controller
         try {
             $this->authorize('create',Playlist::class);
             $playlist = Playlist::create($request->except('slots'));
-            //$playlist = new Playlist();
-            //$playlist->fill($request->except('slots'));
             $playlist->seconds = 0;
-            foreach ($request->input('slots') as $slot)
-            {
-                $new = new PlaylistSlot();
-                $new->fill($slot);
-                $new->playlist_id = $playlist->id;
-                $new->save();
-                $playlist->seconds += $slot['seconds'];
-            }
+            $listSlots = $request->input('slots');
+            $listSlots = array_map(function ($item) use ($playlist) {
+                $playlist->seconds += $item['seconds'];
+                $item['id'] = (string)Str::uuid();
+                $item['playlist_id'] = $playlist->id;
+                $item['created_at'] = strtotime(Carbon::now());
+                return $item;
+            }, $listSlots);
+            PlaylistSlot::insert($listSlots);
             $playlist->save();
             return responder()->success(['Saved successfully!'])->respond();
         }
@@ -85,12 +86,14 @@ class PlaylistController extends Controller
             $this->authorize('update', Playlist::class);
             $playlist->update($request->except('slots'));
             $playlist->seconds = 0;
-            foreach ($request->input('slots') as $slot)
-            {
-                PlaylistSlot::where('id',$slot['id'])
-                    ->update(['seq' => $slot['seq']]);
-                $playlist->seconds += $slot['seconds'];
-            }
+
+            $playlistSlotInstance = new PlaylistSlot();
+            $value = $request->input('slots');
+            $index = 'id';
+            $listSeconds = array_column($value, 'seconds');
+            \Batch::update($playlistSlotInstance, $value, $index);
+
+            $playlist->seconds += array_sum($listSeconds);
             $playlist->save();
             return responder()->success(['Saved successfully!'])->respond();
         }
@@ -124,11 +127,11 @@ class PlaylistController extends Controller
 
     public function totalSize(Playlist $playlist)
     {
-        $listContent = Content::join('slot_contents','slot_contents.content_id','=','contents.id')
+        $totalSize = Content::join('slot_contents','slot_contents.content_id','=','contents.id')
             ->join('playlist_slots','playlist_slots.slot_id','=','slot_contents.slot_id')
             ->where('playlist_slots.playlist_id','=',$playlist->id)
-            ->get()->toArray();
-        $listSize = array_column($listContent, 'size');
-        return responder()->success(['totalSize' => array_sum($listSize)])->respond();
+            ->get()
+            ->sum('size');
+        return responder()->success(['totalSize' => $totalSize])->respond();
     }
 }

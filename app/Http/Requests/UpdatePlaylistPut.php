@@ -28,16 +28,16 @@ class UpdatePlaylistPut extends FormRequest
             'contract_id' => 'required|exists:contracts,id',
             'playlist_name' => 'required',
             'refresh_span_seconds' => 'numeric',
-            'slots.*.slot_id' => 'exists:slots,id',
-            'slots.*.seq' => 'required_with:slots.*.slot_id|numeric',
-            'slots.*.seconds' => 'required_with:slots.*.slot_id|numeric'
+            'slots.*.id' => 'exists:playlist_slots,id',
+            'slots.*.seq' => 'required_with:slots.*.id|numeric',
+            'slots.*.seconds' => 'required_with:slots.*.id|numeric'
         ];
     }
 
     public function attributes()
     {
         return [
-            'slots.*.slot_id' => 'slot id',
+            'slots.*.id' => 'id',
             'slots.*.seq' => 'seq',
             'slots.*.seconds' => 'seconds',
         ];

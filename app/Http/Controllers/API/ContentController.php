@@ -46,18 +46,21 @@ class ContentController extends Controller
                 $content->fill($request->except('url'));
                 $content->url = 'storage/' . $link;
                 $content->content_type = 1;
+                $content->size = Storage::disk('public')->size($fileName);
                 $content->save();
             }
             else
             {
                 $content->fill($request->all());
                 $content->content_type = $request->input('url') === null ? 0 : 2;
+                $content->size = 0;
                 $content->save();
             }
         }
         else
         {
             $content->fill($request->all());
+            $content->size = 0;
             $content->save();
         }
         return responder()->success(['Saved successfully'])->respond();
@@ -98,18 +101,21 @@ class ContentController extends Controller
                 $content->fill($request->except('url'));
                 $content->url = 'storage/' . $link;
                 $content->content_type = 1;
+                $content->size = Storage::disk('public')->size($fileName);
                 $content->save();
             }
             else
             {
                 $content->fill($request->all());
                 $content->content_type = $request->input('url') === null ? 0 : 2;
+                $content->size = 0;
                 $content->save();
             }
         }
         else
         {
             $content->content_type = 0;
+            $content->size = 0;
             $content->update($request->all());
         }
 
@@ -130,5 +136,18 @@ class ContentController extends Controller
             Storage::disk('public')->delete($filename);
         $content->delete();
         return responder()->success(['Deleted successfully!'])->respond();
+    }
+
+    public function getSize()
+    {
+        $filename = $this->attributes['content_type'] == 1 ? explode('/', $this->attributes['url'])[1] : null;
+        if(Storage::disk('public')->exists($filename))
+        {
+            return Storage::disk('public')->size($filename);
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
