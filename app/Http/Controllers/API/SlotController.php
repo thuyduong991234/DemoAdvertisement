@@ -44,14 +44,16 @@ class SlotController extends Controller
         try {
             $this->authorize('create', Slot::class);
             $slot = Slot::create($request->except('contents'));
-            $listContents = $request->input('contents');
-            $listContents = array_map(function ($item) use ($slot) {
-                $item['id'] = (string)Str::uuid();
-                $item['slot_id'] = $slot->id;
-                $item['created_at'] = strtotime(Carbon::now());
-                return $item;
-            }, $listContents);
-            SlotContent::insert($listContents);
+            if($request->has('contents')) {
+                $listContents = $request->input('contents');
+                $listContents = array_map(function ($item) use ($slot) {
+                    $item['id'] = (string)Str::uuid();
+                    $item['slot_id'] = $slot->id;
+                    $item['created_at'] = strtotime(Carbon::now());
+                    return $item;
+                }, $listContents);
+                SlotContent::insert($listContents);
+            }
             return responder()->success(['Saved successfully!'])->respond();
         } catch (\Exception $e) {
             return responder()->error()
@@ -85,11 +87,15 @@ class SlotController extends Controller
         try {
             $this->authorize('update', Slot::class);
             $slot->update($request->except('contents'));
-            $slotContentInstance = new SlotContent();
-            $value = $request->input('contents');
-            $index = 'id';
+            if($request->has('contents'))
+            {
+                $slotContentInstance = new SlotContent();
+                $value = $request->input('contents') != null ? $request->input('contents') : null;
+                $index = 'id';
 
-            \Batch::update($slotContentInstance, $value, $index);
+                \Batch::update($slotContentInstance, $value, $index);
+            }
+
             return responder()->success(['Saved successfully!'])->respond();
         } catch (\Exception $e) {
             return responder()->error()

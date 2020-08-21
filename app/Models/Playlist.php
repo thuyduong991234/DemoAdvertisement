@@ -10,6 +10,7 @@ class Playlist extends Model
 {
     //
     use UtilTrait, Filterable;
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
     public $incrementing = false;
     protected $dateFormat = 'U';
     protected $table = 'playlists';
@@ -38,5 +39,10 @@ class Playlist extends Model
             'seq',
             'seconds'
         ]);
+    }
+
+    public function contents()
+    {
+        return $this->hasManyDeep('App\Models\Content', ['playlist_slots', 'App\Models\Slot', 'slot_contents']);
     }
 }
